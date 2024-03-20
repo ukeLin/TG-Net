@@ -139,14 +139,11 @@ class test_dataset_csv:
         return self.Haminfo[0][self.index]
 
     def csv2tensors(self, folder_path):
-        # 读取指定文件夹中的所有csv文件并将数据存储为张量格式
         csv_tensors = []
         for file_name in os.listdir(folder_path):
             if file_name.endswith('.csv'):
-                # 读取csv文件
                 file_path = os.path.join(folder_path, file_name)
                 data = pd.read_csv(file_path)
-                # 将读取的数据进行onehot编码
                 le = LabelEncoder()
                 # data['age_approximate'] = le.fit_transform(data['age_approximate'])
                 # data['sex'] = le.fit_transform(data['sex'])
@@ -172,22 +169,16 @@ class test_dataset_csv:
                 data['sex'] = le.fit_transform(data['sex'])
                 data['localization'] = le.fit_transform(data['localization'])
                 # print(data)
-                # 读取存为numpy数组再转tensor
                 temp_array = np.array(data)
 
-                # 将数据转换为张量格式并添加到列表中
                 tensor = torch.tensor(temp_array)
                 tensor = tensor.float()
                 # print(type(tensor))
-                bn = nn.BatchNorm1d(5)  # 最后一个维度的大小。其实更加标准的说法是
-                # 特征的数量，我们这里，一个数据有3个特征，一个特征就是一个数。所以用batchnorm1d。
-                # 在计算机视觉中，一张图片就是一个数据，其特征数量就是其channel数量，就是这么定义的，别问为什么。
-                # 此时一个特征就是一个224*224的矩阵，所以使用
+                bn = nn.BatchNorm1d(5) 
                 # batchnorm2d。
                 tensor = bn(tensor)
                 # print(tensor)
                 csv_tensors.append(tensor)
-        # 返回csv文件的张量列表
         return csv_tensors
 
 
