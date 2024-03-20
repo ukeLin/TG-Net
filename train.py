@@ -29,14 +29,14 @@ class ISIC_2017_csvDataset(data.Dataset):
         return self.Haminfo[0][index]
 
     def csv2tensors(self, folder_path):
-        # 读取指定文件夹中的所有csv文件并将数据存储为张量格式
+
         csv_tensors = []
         for file_name in os.listdir(folder_path):
             if file_name.endswith('.csv'):
-                # 读取csv文件
+       
                 file_path = os.path.join(folder_path, file_name)
                 data = pd.read_csv(file_path)
-                # 将读取的数据进行onehot编码
+      
                 le = LabelEncoder()
                 # ISIC_2017
                 data['age_approximate'] = le.fit_transform(data['age_approximate'])
@@ -65,22 +65,20 @@ class ISIC_2017_csvDataset(data.Dataset):
                 # data['sex'] = le.fit_transform(data['sex'])
                 # data['localization'] = le.fit_transform(data['localization'])
                 # print(data)
-                # 读取存为numpy数组再转tensor
+ 
                 temp_array = np.array(data)
 
-                # 将数据转换为张量格式并添加到列表中
+
                 tensor = torch.tensor(temp_array)
                 tensor = tensor.float()
-                # print(type(tensor))
-                bn = nn.BatchNorm1d(2)  # 最后一个维度的大小。其实更加标准的说法是
-                # 特征的数量，我们这里，一个数据有3个特征，一个特征就是一个数。所以用batchnorm1d。
-                # 在计算机视觉中，一张图片就是一个数据，其特征数量就是其channel数量，就是这么定义的，别问为什么。
-                # 此时一个特征就是一个224*224的矩阵，所以使用
+         
+                bn = nn.BatchNorm1d(2)  
+                
                 # batchnorm2d。
                 tensor = bn(tensor)
                 # print(tensor)
                 csv_tensors.append(tensor)
-        # 返回csv文件的张量列表
+     
         return csv_tensors
 
     def __len__(self):
@@ -96,14 +94,14 @@ class ph2_csvDataset(data.Dataset):
         return self.Haminfo[0][index]
 
     def csv2tensors(self, folder_path):
-        # 读取指定文件夹中的所有csv文件并将数据存储为张量格式
+
         csv_tensors = []
         for file_name in os.listdir(folder_path):
             if file_name.endswith('.csv'):
-                # 读取csv文件
+         
                 file_path = os.path.join(folder_path, file_name)
                 data = pd.read_csv(file_path)
-                # 将读取的数据进行onehot编码
+
                 le = LabelEncoder()
                 # ISIC_2017
                 data['age_approximate'] = le.fit_transform(data['age_approximate'])
@@ -132,22 +130,16 @@ class ph2_csvDataset(data.Dataset):
                 # data['sex'] = le.fit_transform(data['sex'])
                 # data['localization'] = le.fit_transform(data['localization'])
                 # print(data)
-                # 读取存为numpy数组再转tensor
                 temp_array = np.array(data)
-
-                # 将数据转换为张量格式并添加到列表中
                 tensor = torch.tensor(temp_array)
                 tensor = tensor.float()
                 # print(type(tensor))
-                bn = nn.BatchNorm1d(16)  # 最后一个维度的大小。其实更加标准的说法是
-                # 特征的数量，我们这里，一个数据有3个特征，一个特征就是一个数。所以用batchnorm1d。
-                # 在计算机视觉中，一张图片就是一个数据，其特征数量就是其channel数量，就是这么定义的，别问为什么。
-                # 此时一个特征就是一个224*224的矩阵，所以使用
+                bn = nn.BatchNorm1d(16)  
                 # batchnorm2d。
                 tensor = bn(tensor)
                 # print(tensor)
                 csv_tensors.append(tensor)
-        # 返回csv文件的张量列表
+       
         return csv_tensors
 
     def __len__(self):
@@ -163,14 +155,11 @@ class Ham_csvDataset(data.Dataset):
         return self.Haminfo[0][index]
 
     def csv2tensors(self, folder_path):
-        # 读取指定文件夹中的所有csv文件并将数据存储为张量格式
         csv_tensors = []
         for file_name in os.listdir(folder_path):
             if file_name.endswith('.csv'):
-                # 读取csv文件
                 file_path = os.path.join(folder_path, file_name)
                 data = pd.read_csv(file_path)
-                # 将读取的数据进行onehot编码
                 le = LabelEncoder()
                 data['dx'] = le.fit_transform(data['dx'])
                 data['dx_type'] = le.fit_transform(data['dx_type'])
@@ -178,22 +167,16 @@ class Ham_csvDataset(data.Dataset):
                 data['sex'] = le.fit_transform(data['sex'])
                 data['localization'] = le.fit_transform(data['localization'])
                 # print(data)
-                # 读取存为numpy数组再转tensor
                 temp_array = np.array(data)
 
-                # 将数据转换为张量格式并添加到列表中
                 tensor = torch.tensor(temp_array)
                 tensor = tensor.float()
                 # print(type(tensor))
-                bn = nn.BatchNorm1d(5)  # 最后一个维度的大小。其实更加标准的说法是
-                # 特征的数量，我们这里，一个数据有3个特征，一个特征就是一个数。所以用batchnorm1d。
-                # 在计算机视觉中，一张图片就是一个数据，其特征数量就是其channel数量，就是这么定义的，别问为什么。
-                # 此时一个特征就是一个224*224的矩阵，所以使用
+                bn = nn.BatchNorm1d(5)  
                 # batchnorm2d。
                 tensor = bn(tensor)
                 # print(tensor)
                 csv_tensors.append(tensor)
-        # 返回csv文件的张量列表
         return csv_tensors
 
     def __len__(self):
@@ -617,7 +600,7 @@ class MLP(nn.Module):
         return x
 
 
-class MRML_Net(nn.Module):
+class TG_Net(nn.Module):
     # res2net based encoder decoder
     def __init__(self, channel=32, n_class=1,
                  mm_dim=1200,
@@ -628,7 +611,7 @@ class MRML_Net(nn.Module):
                  dropout_input=0.,
                  dropout_pre_norm=0.,
                  dropout_output=0.):
-        super(MRML_Net, self).__init__()
+        super(TG_Net, self).__init__()
         # ---- ResNet Backbone ----
         self.resnet = res2net50_v1b_26w_4s(pretrained=False)
         # ---- Receptive Field Block like module ----
@@ -853,14 +836,13 @@ def train(train_loader, train_loader_csv, model, optimizer, epoch):
                   format(datetime.now(), epoch, opt.epoch, i, total_step,
                          loss_record2.show(), loss_record3.show(), loss_record4.show(), loss_record5.show()))
 
-    # 保存loss
     os.makedirs(save_path, exist_ok=True)
     losslist.append(loss_record2.show().cpu().detach().numpy())
     np.savetxt(save_path + 'train_loss.csv', losslist, delimiter=',')
 
     if (epoch + 1) % 10 == 0:
-        torch.save(model.state_dict(), save_path + 'MFSNet_dx.pth')
-        print('[Saving Snapshot:]', save_path + 'MFSNet_dx.pth')
+        torch.save(model.state_dict(), save_path + 'TGNet_dx.pth')
+        print('[Saving Snapshot:]', save_path + 'TGNet_dx.pth')
 
 
 # noinspection LanguageDetectionInspection
@@ -888,7 +870,7 @@ if __name__ == '__main__':
 
     # ---- build models ----
     # torch.cuda.set_device(0)  # set your gpu device
-    model = MRML_Net().cuda()
+    model = TG_Net().cuda()
 
     # ---- flops and params ----
     params = model.parameters()
