@@ -1,0 +1,39 @@
+# TG-Net on ISIC 2017 (2000 training images, 2 clinical prompt fields)
+
+experiment: isic2017
+
+data:
+  name: isic2017
+  root: data
+  csv_subdir: csv
+
+train:
+  epochs: 100
+  lr: 1.0e-4
+  batchsize: 3
+  trainsize: 352
+  clip: 0.5
+  decay_rate: 0.05
+  decay_epoch: 25
+  num_workers: 4
+  seed: 42
+  size_rates: [0.75, 1.0, 1.25]
+  save_dir: Snapshots
+  save_every: 10
+  log_every: 20
+  gpu: 0
+
+model:
+  channel: 32
+  n_class: 1
+  # ISIC 2017 provides age_approximate + sex.
+  text_hidden: [14, 32]
+  mm_dim: 1200
+  factor: 2
+  pretrained_backbone: null
+  frozen_backbone: false
+
+test:
+  testsize: 352
+  checkpoint: Snapshots/isic2017/TGNet.pth
+  save_path: results/isic2017

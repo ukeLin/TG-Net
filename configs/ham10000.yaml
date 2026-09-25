@@ -1,0 +1,43 @@
+# TG-Net on HAM10000 (10015 dermoscopy images, 5 clinical prompt fields)
+
+experiment: ham10000
+
+data:
+  name: ham10000
+  root: data
+  # Folder holding one CSV per case. Use `csv_subdir: ""` when the split root
+  # itself contains the CSVs instead of a dedicated subfolder.
+  csv_subdir: csv
+
+train:
+  epochs: 100
+  lr: 1.0e-4
+  batchsize: 3
+  trainsize: 352
+  clip: 0.5
+  decay_rate: 0.05
+  decay_epoch: 25
+  num_workers: 4
+  seed: 42
+  # Multi-scale training rates (paper Sec. 4.1).
+  size_rates: [0.75, 1.0, 1.25]
+  save_dir: Snapshots
+  save_every: 10
+  log_every: 20
+  gpu: 0
+
+model:
+  channel: 32
+  n_class: 1
+  text_hidden: [14, 32]
+  mm_dim: 1200
+  factor: 2
+  # Path to a res2net50_v1b_26w_4s checkpoint (ImageNet). Leave null to train
+  # the encoder from scratch, which is what the paper's protocol does.
+  pretrained_backbone: null
+  frozen_backbone: false
+
+test:
+  testsize: 352
+  checkpoint: Snapshots/ham10000/TGNet.pth
+  save_path: results/ham10000

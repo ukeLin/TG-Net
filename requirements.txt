@@ -1,0 +1,18 @@
+# TG-Net dependencies
+#
+# Tested with Python 3.9+ and PyTorch 1.13 / 2.x (CUDA 11.7+).
+# Install with:  pip install -r requirements.txt
+
+# ---- core ----
+torch>=1.13.0
+torchvision>=0.14.0
+
+# ---- data / preprocessing ----
+numpy>=1.23.0
+pandas>=1.5.0
+scikit-learn>=1.1.0
+scikit-image>=0.19.0
+Pillow>=9.3.0
+opencv-python>=4.6.0
+openpyxl>=3.0.10        # reading .xlsx metadata in preprocess/prepare_dataset.py
+PyYAML>=6.0             # configs/*.yaml

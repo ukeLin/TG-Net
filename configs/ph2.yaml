@@ -1,0 +1,45 @@
+# TG-Net on PH2 (200 images, 16 ABCD-rule prompt fields)
+#
+# PH2 is tiny, so we recommend initialising from the HAM10000 checkpoint and
+# only fine-tuning for a handful of epochs:
+#
+#   python train.py --config configs/ph2.yaml \
+#       --pretrained_backbone Snapshots/ham10000/TGNet.pth --epoch 30
+
+experiment: ph2
+
+data:
+  name: ph2
+  root: data
+  csv_subdir: csv
+
+train:
+  epochs: 30
+  lr: 1.0e-4
+  batchsize: 2
+  trainsize: 352
+  clip: 0.5
+  decay_rate: 0.05
+  decay_epoch: 10
+  num_workers: 2
+  seed: 42
+  size_rates: [0.75, 1.0, 1.25]
+  save_dir: Snapshots
+  save_every: 5
+  log_every: 10
+  gpu: 0
+
+model:
+  channel: 32
+  n_class: 1
+  # PH2 carries the 16 ABCD-rule fields; the prompt MLP input widens with them.
+  text_hidden: [32, 32]
+  mm_dim: 1200
+  factor: 2
+  pretrained_backbone: null
+  frozen_backbone: false
+
+test:
+  testsize: 352
+  checkpoint: Snapshots/ph2/TGNet.pth
+  save_path: results/ph2

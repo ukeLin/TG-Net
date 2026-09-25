@@ -1,0 +1,44 @@
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+
+# ---- virtual environments ----
+venv/
+.venv/
+env/
+ENV/
+
+# ---- notebooks / tooling ----
+.ipynb_checkpoints/
+.vscode/
+.idea/
+*.swp
+
+# ---- datasets (download separately, see data/README.md) ----
+data/*
+!data/README.md
+
+# ---- training artifacts ----
+Snapshots/
+results/
+res/
+runs/
+*.pth
+*.pt
+*.ckpt
+
+# ---- evaluation output ----
+eval/res/
+eval/**/*.mat
+
+# ---- MATLAB autosave ----
+*.asv
+*.m~
+
+# ---- OS cruft ----
+.DS_Store
+Thumbs.db
