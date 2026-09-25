@@ -60,12 +60,14 @@ eval/             MATLAB metrics
 ## Citation
 
 ```bibtex
-@article{meng2024tgnnet,
-  title   = {TG-Net: Using text prompts for improved skin lesion segmentation},
-  author  = {Meng, Xiangfu and Yu, Chunlin and Zhang, Zhichao and
-             Zhang, Xiaoyan and Wang, Meng},
-  journal = {Computers in Biology and Medicine},
-  year    = {2024},
-  doi     = {10.1016/j.compbiomed.2024.108819}
+@article{meng2024tg,
+  title     = {TG-Net: Using text prompts for improved skin lesion segmentation},
+  author    = {Meng, Xiangfu and Yu, Chunlin and Zhang, Zhichao and
+               Zhang, Xiaoyan and Wang, Meng},
+  journal   = {Computers in Biology and Medicine},
+  volume    = {179},
+  pages     = {108819},
+  year      = {2024},
+  publisher = {Elsevier}
 }
 ```
